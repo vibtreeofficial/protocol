@@ -8,7 +8,7 @@ package rpc
 
 import (
 	livekit "github.com/vibtreeofficial/protocol/media-router"
-	_ "github.com/livekit/psrpc/protoc-gen-psrpc/options"
+	_ "github.com/vibtreeofficial/psrpc/protoc-gen-psrpc/options"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"

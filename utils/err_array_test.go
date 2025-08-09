@@ -19,7 +19,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/livekit/psrpc"
+	"github.com/vibtreeofficial/psrpc"
 	"github.com/stretchr/testify/assert"
 )
 

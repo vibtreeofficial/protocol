@@ -15,7 +15,7 @@
 package rpc
 
 import (
-	"github.com/livekit/psrpc"
+	"github.com/vibtreeofficial/psrpc"
 )
 
 type SIPClient interface {

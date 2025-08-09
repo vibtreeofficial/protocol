@@ -6,12 +6,12 @@ package rpc
 import (
 	"context"
 
-	"github.com/livekit/psrpc"
-	"github.com/livekit/psrpc/pkg/client"
-	"github.com/livekit/psrpc/pkg/info"
-	"github.com/livekit/psrpc/pkg/rand"
-	"github.com/livekit/psrpc/pkg/server"
-	"github.com/livekit/psrpc/version"
+	"github.com/vibtreeofficial/psrpc"
+	"github.com/vibtreeofficial/psrpc/pkg/client"
+	"github.com/vibtreeofficial/psrpc/pkg/info"
+	"github.com/vibtreeofficial/psrpc/pkg/rand"
+	"github.com/vibtreeofficial/psrpc/pkg/server"
+	"github.com/vibtreeofficial/psrpc/version"
 )
 import google_protobuf "google.golang.org/protobuf/types/known/emptypb"
 

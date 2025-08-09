@@ -7,7 +7,7 @@ import (
 
 	"github.com/vibtreeofficial/protocol/media-router"
 	"github.com/vibtreeofficial/protocol/rpc"
-	"github.com/livekit/psrpc"
+	"github.com/vibtreeofficial/psrpc"
 )
 
 type FakeKeepalivePubSub struct {

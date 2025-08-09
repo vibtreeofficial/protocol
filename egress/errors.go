@@ -15,7 +15,7 @@
 package egress
 
 import (
-	"github.com/livekit/psrpc"
+	"github.com/vibtreeofficial/psrpc"
 )
 
 var (

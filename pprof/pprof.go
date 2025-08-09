@@ -20,7 +20,7 @@ import (
 	"runtime/pprof"
 	"time"
 
-	"github.com/livekit/psrpc"
+	"github.com/vibtreeofficial/psrpc"
 )
 
 const (

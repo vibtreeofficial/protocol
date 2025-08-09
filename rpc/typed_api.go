@@ -22,8 +22,8 @@ import (
 	"github.com/vibtreeofficial/protocol/media-router"
 	"github.com/vibtreeofficial/protocol/logger"
 	"github.com/vibtreeofficial/protocol/utils/must"
-	"github.com/livekit/psrpc"
-	"github.com/livekit/psrpc/pkg/middleware"
+	"github.com/vibtreeofficial/psrpc"
+	"github.com/vibtreeofficial/psrpc/pkg/middleware"
 )
 
 type PSRPCConfig struct {
