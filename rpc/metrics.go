@@ -1,4 +1,4 @@
-// Copyright 2023 LiveKit, Inc.
+// Copyright 2023 Vibtree, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import (
 )
 
 const (
-	livekitNamespace = "livekit"
+	MediaRouterNamespace = "media-router"
 )
 
 type psrpcMetrics struct {
@@ -86,39 +86,39 @@ func InitPSRPCStats(constLabels prometheus.Labels, opts ...PSRPCMetricsOption) {
 	bytesLabels := append(labels, "direction")
 
 	metricsBase.requestTime = prometheus.NewHistogramVec(prometheus.HistogramOpts{
-		Namespace:   livekitNamespace,
+		Namespace:   MediaRouterNamespace,
 		Subsystem:   "psrpc",
 		Name:        "request_time_ms",
 		ConstLabels: constLabels,
 		Buckets:     []float64{10, 50, 100, 300, 500, 1000, 1500, 2000, 5000, 10000},
 	}, labels)
 	metricsBase.streamSendTime = prometheus.NewHistogramVec(prometheus.HistogramOpts{
-		Namespace:   livekitNamespace,
+		Namespace:   MediaRouterNamespace,
 		Subsystem:   "psrpc",
 		Name:        "stream_send_time_ms",
 		ConstLabels: constLabels,
 		Buckets:     []float64{10, 50, 100, 300, 500, 1000, 1500, 2000, 5000, 10000},
 	}, streamLabels)
 	metricsBase.streamReceiveTotal = prometheus.NewCounterVec(prometheus.CounterOpts{
-		Namespace:   livekitNamespace,
+		Namespace:   MediaRouterNamespace,
 		Subsystem:   "psrpc",
 		Name:        "stream_receive_total",
 		ConstLabels: constLabels,
 	}, streamLabels)
 	metricsBase.streamCurrent = prometheus.NewGaugeVec(prometheus.GaugeOpts{
-		Namespace:   livekitNamespace,
+		Namespace:   MediaRouterNamespace,
 		Subsystem:   "psrpc",
 		Name:        "stream_count",
 		ConstLabels: constLabels,
 	}, streamLabels)
 	metricsBase.errorTotal = prometheus.NewCounterVec(prometheus.CounterOpts{
-		Namespace:   livekitNamespace,
+		Namespace:   MediaRouterNamespace,
 		Subsystem:   "psrpc",
 		Name:        "error_total",
 		ConstLabels: constLabels,
 	}, labels)
 	metricsBase.bytesTotal = prometheus.NewCounterVec(prometheus.CounterOpts{
-		Namespace:   livekitNamespace,
+		Namespace:   MediaRouterNamespace,
 		Subsystem:   "psrpc",
 		Name:        "bytes_total",
 		ConstLabels: constLabels,

@@ -65,7 +65,7 @@ func (p *EvaluateSIPDispatchRulesRequest) SIPCall() *SIPCall {
 }
 
 // NewCreateSIPParticipantRequest fills InternalCreateSIPParticipantRequest from
-// livekit.CreateSIPParticipantRequest and livekit.SIPTrunkInfo.
+// MediaRouter.CreateSIPParticipantRequest and MediaRouter.SIPOutboundTrunkInfo.
 func NewCreateSIPParticipantRequest(
 	projectID, callID, ownHostname, wsUrl, token string,
 	req *media_router.CreateSIPParticipantRequest,
@@ -194,7 +194,7 @@ func NewCreateSIPParticipantRequest(
 }
 
 // NewTransferSIPParticipantRequest fills InternalTransferSIPParticipantRequest from
-// livekit.TransferSIPParticipantRequest.
+// media_router.TransferSIPParticipantRequest.
 func NewTransferSIPParticipantRequest(
 	callID string,
 	req *media_router.TransferSIPParticipantRequest,
