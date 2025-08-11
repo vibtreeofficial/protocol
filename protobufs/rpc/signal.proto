@@ -19,8 +19,8 @@ package rpc;
 option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "options.proto";
-import "vibtree_internal.proto";
-import "vibtree_rtc.proto";
+import "media_router_internal.proto";
+import "media_router_rtc.proto";
 
 service Signal {
   rpc RelaySignal(rpc.RelaySignalRequest) returns (rpc.RelaySignalResponse) {
@@ -38,14 +38,14 @@ service Signal {
 }
 
 message RelaySignalRequest {
-  vibtree.StartSession start_session = 1;
-  repeated vibtree.SignalRequest requests = 3;
+  media_router.StartSession start_session = 1;
+  repeated media_router.SignalRequest requests = 3;
   uint64 seq = 4;
   bool close = 5;
 }
 
 message RelaySignalResponse {
-  repeated vibtree.SignalResponse responses = 2;
+  repeated media_router.SignalResponse responses = 2;
   uint64 seq = 3;
   bool close = 4;
 }

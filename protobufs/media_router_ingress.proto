@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package media_router;
 
-import "vibtree_models.proto";
+import "media_router_models.proto";
 
 option go_package = "github.com/vibtreeofficial/protocol/media-router";
 option csharp_namespace = "MediaRouter.Proto";

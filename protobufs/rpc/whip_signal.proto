@@ -6,8 +6,8 @@ option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "google/protobuf/empty.proto";
 import "options.proto";
-import "vibtree_internal.proto";
-import "vibtree_rtc.proto";
+import "media_router_internal.proto";
+import "media_router_rtc.proto";
 
 service WHIP {
   rpc Create(WHIPCreateRequest) returns (WHIPCreateResponse) {
@@ -28,7 +28,7 @@ message WHIPCreateRequest {
     repeated string track_names = 1;
   }
 
-  vibtree.StartSession start_session = 1;
+  media_router.StartSession start_session = 1;
   string offer_sdp = 2;
   map<string, TrackList> subscribed_participant_tracks = 3;
 }
@@ -36,7 +36,7 @@ message WHIPCreateRequest {
 message WHIPCreateResponse {
   string answer_sdp = 1;
   string participant_id = 2;
-  repeated vibtree.ICEServer ice_servers = 3;
+  repeated media_router.ICEServer ice_servers = 3;
   string ice_session_id = 4;
 }
 

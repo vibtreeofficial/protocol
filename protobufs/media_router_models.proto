@@ -21,7 +21,7 @@ option ruby_package = "MediaRouter::Proto";
 
 import "google/protobuf/timestamp.proto";
 
-import "vibtree_metrics.proto";
+import "media_router_metrics.proto";
 
 message Pagination {
   string after_id = 1; // list entities which IDs are greater
@@ -141,7 +141,7 @@ message ParticipantInfo {
     EGRESS = 2;
     // SIP participants
     SIP = 3;
-    // LiveKit agents
+    // Media Router agents
     AGENT = 4;
 
     // NEXT_ID: 7
@@ -441,7 +441,7 @@ message ClientInfo {
   string address = 9;
   // wifi, wired, cellular, vpn, empty if not known
   string network = 10;
-  // comma separated list of additional LiveKit SDKs in use of this client, with versions
+  // comma separated list of additional Media Router SDKs in use of this client, with versions
   // e.g. "components-js:1.2.3,track-processors-js:1.2.3"
   string other_sdks = 11;
 }
@@ -719,3 +719,5 @@ message WebhookConfig {
   string url = 1;
   string signing_key = 2;
 }
+
+

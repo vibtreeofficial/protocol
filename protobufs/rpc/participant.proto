@@ -19,11 +19,11 @@ package rpc;
 option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "options.proto";
-import "vibtree_models.proto";
-import "vibtree_room.proto";
+import "media_router_models.proto";
+import "media_router_room.proto";
 
 service Participant {
-  rpc RemoveParticipant(vibtree.RoomParticipantIdentity) returns (vibtree.RemoveParticipantResponse) {
+  rpc RemoveParticipant(media_router.RoomParticipantIdentity) returns (media_router.RemoveParticipantResponse) {
     option (psrpc.options) = {
       topics: true
       topic_params: {
@@ -33,7 +33,7 @@ service Participant {
       };
     };
   };
-  rpc MutePublishedTrack(vibtree.MuteRoomTrackRequest) returns (vibtree.MuteRoomTrackResponse) {
+  rpc MutePublishedTrack(media_router.MuteRoomTrackRequest) returns (media_router.MuteRoomTrackResponse) {
     option (psrpc.options) = {
       topics: true
       topic_params: {
@@ -43,7 +43,7 @@ service Participant {
       };
     };
   };
-  rpc UpdateParticipant(vibtree.UpdateParticipantRequest) returns (vibtree.ParticipantInfo) {
+  rpc UpdateParticipant(media_router.UpdateParticipantRequest) returns (media_router.ParticipantInfo) {
     option (psrpc.options) = {
       topics: true
       topic_params: {
@@ -53,7 +53,7 @@ service Participant {
       };
     };
   };
-  rpc UpdateSubscriptions(vibtree.UpdateSubscriptionsRequest) returns (vibtree.UpdateSubscriptionsResponse) {
+  rpc UpdateSubscriptions(media_router.UpdateSubscriptionsRequest) returns (media_router.UpdateSubscriptionsResponse) {
     option (psrpc.options) = {
       topics: true
       topic_params: {
@@ -63,7 +63,7 @@ service Participant {
       };
     };
   };
-  rpc ForwardParticipant(vibtree.ForwardParticipantRequest) returns (vibtree.ForwardParticipantResponse) {
+  rpc ForwardParticipant(media_router.ForwardParticipantRequest) returns (media_router.ForwardParticipantResponse) {
     option (psrpc.options) = {
       topics: true
       topic_params: {
@@ -73,7 +73,7 @@ service Participant {
       };
     };
   };
-  rpc MoveParticipant(vibtree.MoveParticipantRequest) returns (vibtree.MoveParticipantResponse) {
+  rpc MoveParticipant(media_router.MoveParticipantRequest) returns (media_router.MoveParticipantResponse) {
     option (psrpc.options) = {
       topics: true
       topic_params: {

@@ -19,11 +19,11 @@ package rpc;
 option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "options.proto";
-import "vibtree_models.proto";
-import "vibtree_room.proto";
+import "media_router_models.proto";
+import "media_router_room.proto";
 
 service Room {
-  rpc DeleteRoom(vibtree.DeleteRoomRequest) returns (vibtree.DeleteRoomResponse) {
+  rpc DeleteRoom(media_router.DeleteRoomRequest) returns (media_router.DeleteRoomResponse) {
     option (psrpc.options) = {
       topics: true
       topic_params: {
@@ -33,7 +33,7 @@ service Room {
       };
     };
   };
-  rpc SendData(vibtree.SendDataRequest) returns (vibtree.SendDataResponse) {
+  rpc SendData(media_router.SendDataRequest) returns (media_router.SendDataResponse) {
     option (psrpc.options) = {
       topics: true
       topic_params: {
@@ -43,7 +43,7 @@ service Room {
       };
     };
   };
-  rpc UpdateRoomMetadata (vibtree.UpdateRoomMetadataRequest) returns (vibtree.Room) {
+  rpc UpdateRoomMetadata (media_router.UpdateRoomMetadataRequest) returns (media_router.Room) {
     option (psrpc.options) = {
       topics: true
       topic_params: {

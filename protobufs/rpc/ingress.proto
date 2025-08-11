@@ -19,11 +19,11 @@ package rpc;
 option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "options.proto";
-import "vibtree_ingress.proto";
+import "media_router_ingress.proto";
 import "google/protobuf/empty.proto";
 
 service IngressInternal {
-  rpc StartIngress(StartIngressRequest) returns (vibtree.IngressInfo) {
+  rpc StartIngress(StartIngressRequest) returns (media_router.IngressInfo) {
     option (psrpc.options).affinity_func = true;
   };
 
@@ -44,10 +44,10 @@ service IngressInternal {
 }
 
 service IngressHandler {
-  rpc UpdateIngress(vibtree.UpdateIngressRequest) returns (vibtree.IngressState) {
+  rpc UpdateIngress(media_router.UpdateIngressRequest) returns (media_router.IngressState) {
     option (psrpc.options).topics = true;
   };
-  rpc DeleteIngress(vibtree.DeleteIngressRequest) returns (vibtree.IngressState) {
+  rpc DeleteIngress(media_router.DeleteIngressRequest) returns (media_router.IngressState) {
     option (psrpc.options).topics = true;
   };
   rpc DeleteWHIPResource(DeleteWHIPResourceRequest) returns (google.protobuf.Empty) {
@@ -84,7 +84,7 @@ message ICERestartWHIPResourceResponse {
 }
 
 message StartIngressRequest {
-  vibtree.IngressInfo info = 1;
+  media_router.IngressInfo info = 1;
   string token = 2;
   string ws_url = 3;
   map<string,string> logging_fields = 4;

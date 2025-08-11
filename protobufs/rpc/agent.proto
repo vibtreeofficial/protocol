@@ -20,13 +20,13 @@ option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "google/protobuf/empty.proto";
 import "options.proto";
-import "vibtree_agent.proto";
+import "media_router_agent.proto";
 
 service AgentInternal {
   rpc CheckEnabled(CheckEnabledRequest) returns (CheckEnabledResponse) {
     option (psrpc.options).multi = true;
   };
-  rpc JobRequest(vibtree.Job) returns (JobRequestResponse) {
+  rpc JobRequest(media_router.Job) returns (JobRequestResponse) {
     option (psrpc.options) = {
       affinity_func: true
       topics: true
@@ -76,7 +76,7 @@ message CheckEnabledResponse {
 }
 
 message JobRequestResponse {
-  vibtree.JobState state = 1;
+  media_router.JobState state = 1;
 }
 
 message JobTerminateRequest {
@@ -85,6 +85,6 @@ message JobTerminateRequest {
 }
 
 message JobTerminateResponse {
-  vibtree.JobState state = 1;
+  media_router.JobState state = 1;
 }
 

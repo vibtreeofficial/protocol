@@ -14,14 +14,14 @@
 
 syntax = "proto3";
 
-package livekit;
+package rpc;
 option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "google/protobuf/empty.proto";
-import "vibtree_analytics.proto";
+import "media_router_analytics.proto";
 
 service AnalyticsRecorderService {
-  rpc IngestStats(stream vibtree.AnalyticsStats) returns (google.protobuf.Empty){};
-  rpc IngestEvents(stream vibtree.AnalyticsEvents) returns (google.protobuf.Empty){};
-  rpc IngestNodeRoomStates(stream vibtree.AnalyticsNodeRooms) returns (google.protobuf.Empty){};
+  rpc IngestStats(stream media_router.AnalyticsStats) returns (google.protobuf.Empty){};
+  rpc IngestEvents(stream media_router.AnalyticsEvents) returns (google.protobuf.Empty){};
+  rpc IngestNodeRoomStates(stream media_router.AnalyticsNodeRooms) returns (google.protobuf.Empty){};
 }

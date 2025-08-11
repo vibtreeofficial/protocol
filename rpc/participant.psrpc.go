@@ -13,8 +13,8 @@ import (
 	"github.com/vibtreeofficial/psrpc/pkg/server"
 	"github.com/vibtreeofficial/psrpc/version"
 )
-import livekit1 "github.com/vibtreeofficial/protocol/media-router"
-import livekit6 "github.com/vibtreeofficial/protocol/media-router"
+import media_router1 "github.com/vibtreeofficial/protocol/media-router"
+import media_router6 "github.com/vibtreeofficial/protocol/media-router"
 
 var _ = version.PsrpcVersion_0_6
 
@@ -23,17 +23,17 @@ var _ = version.PsrpcVersion_0_6
 // ============================
 
 type ParticipantClient[ParticipantTopicType ~string] interface {
-	RemoveParticipant(ctx context.Context, participant ParticipantTopicType, req *livekit6.RoomParticipantIdentity, opts ...psrpc.RequestOption) (*livekit6.RemoveParticipantResponse, error)
+	RemoveParticipant(ctx context.Context, participant ParticipantTopicType, req *media_router6.RoomParticipantIdentity, opts ...psrpc.RequestOption) (*media_router6.RemoveParticipantResponse, error)
 
-	MutePublishedTrack(ctx context.Context, participant ParticipantTopicType, req *livekit6.MuteRoomTrackRequest, opts ...psrpc.RequestOption) (*livekit6.MuteRoomTrackResponse, error)
+	MutePublishedTrack(ctx context.Context, participant ParticipantTopicType, req *media_router6.MuteRoomTrackRequest, opts ...psrpc.RequestOption) (*media_router6.MuteRoomTrackResponse, error)
 
-	UpdateParticipant(ctx context.Context, participant ParticipantTopicType, req *livekit6.UpdateParticipantRequest, opts ...psrpc.RequestOption) (*livekit1.ParticipantInfo, error)
+	UpdateParticipant(ctx context.Context, participant ParticipantTopicType, req *media_router6.UpdateParticipantRequest, opts ...psrpc.RequestOption) (*media_router1.ParticipantInfo, error)
 
-	UpdateSubscriptions(ctx context.Context, participant ParticipantTopicType, req *livekit6.UpdateSubscriptionsRequest, opts ...psrpc.RequestOption) (*livekit6.UpdateSubscriptionsResponse, error)
+	UpdateSubscriptions(ctx context.Context, participant ParticipantTopicType, req *media_router6.UpdateSubscriptionsRequest, opts ...psrpc.RequestOption) (*media_router6.UpdateSubscriptionsResponse, error)
 
-	ForwardParticipant(ctx context.Context, participant ParticipantTopicType, req *livekit6.ForwardParticipantRequest, opts ...psrpc.RequestOption) (*livekit6.ForwardParticipantResponse, error)
+	ForwardParticipant(ctx context.Context, participant ParticipantTopicType, req *media_router6.ForwardParticipantRequest, opts ...psrpc.RequestOption) (*media_router6.ForwardParticipantResponse, error)
 
-	MoveParticipant(ctx context.Context, participant ParticipantTopicType, req *livekit6.MoveParticipantRequest, opts ...psrpc.RequestOption) (*livekit6.MoveParticipantResponse, error)
+	MoveParticipant(ctx context.Context, participant ParticipantTopicType, req *media_router6.MoveParticipantRequest, opts ...psrpc.RequestOption) (*media_router6.MoveParticipantResponse, error)
 
 	// Close immediately, without waiting for pending RPCs
 	Close()
@@ -44,17 +44,17 @@ type ParticipantClient[ParticipantTopicType ~string] interface {
 // ================================
 
 type ParticipantServerImpl interface {
-	RemoveParticipant(context.Context, *livekit6.RoomParticipantIdentity) (*livekit6.RemoveParticipantResponse, error)
+	RemoveParticipant(context.Context, *media_router6.RoomParticipantIdentity) (*media_router6.RemoveParticipantResponse, error)
 
-	MutePublishedTrack(context.Context, *livekit6.MuteRoomTrackRequest) (*livekit6.MuteRoomTrackResponse, error)
+	MutePublishedTrack(context.Context, *media_router6.MuteRoomTrackRequest) (*media_router6.MuteRoomTrackResponse, error)
 
-	UpdateParticipant(context.Context, *livekit6.UpdateParticipantRequest) (*livekit1.ParticipantInfo, error)
+	UpdateParticipant(context.Context, *media_router6.UpdateParticipantRequest) (*media_router1.ParticipantInfo, error)
 
-	UpdateSubscriptions(context.Context, *livekit6.UpdateSubscriptionsRequest) (*livekit6.UpdateSubscriptionsResponse, error)
+	UpdateSubscriptions(context.Context, *media_router6.UpdateSubscriptionsRequest) (*media_router6.UpdateSubscriptionsResponse, error)
 
-	ForwardParticipant(context.Context, *livekit6.ForwardParticipantRequest) (*livekit6.ForwardParticipantResponse, error)
+	ForwardParticipant(context.Context, *media_router6.ForwardParticipantRequest) (*media_router6.ForwardParticipantResponse, error)
 
-	MoveParticipant(context.Context, *livekit6.MoveParticipantRequest) (*livekit6.MoveParticipantResponse, error)
+	MoveParticipant(context.Context, *media_router6.MoveParticipantRequest) (*media_router6.MoveParticipantResponse, error)
 }
 
 // ============================
@@ -116,28 +116,28 @@ func NewParticipantClient[ParticipantTopicType ~string](bus psrpc.MessageBus, op
 	}, nil
 }
 
-func (c *participantClient[ParticipantTopicType]) RemoveParticipant(ctx context.Context, participant ParticipantTopicType, req *livekit6.RoomParticipantIdentity, opts ...psrpc.RequestOption) (*livekit6.RemoveParticipantResponse, error) {
-	return client.RequestSingle[*livekit6.RemoveParticipantResponse](ctx, c.client, "RemoveParticipant", []string{string(participant)}, req, opts...)
+func (c *participantClient[ParticipantTopicType]) RemoveParticipant(ctx context.Context, participant ParticipantTopicType, req *media_router6.RoomParticipantIdentity, opts ...psrpc.RequestOption) (*media_router6.RemoveParticipantResponse, error) {
+	return client.RequestSingle[*media_router6.RemoveParticipantResponse](ctx, c.client, "RemoveParticipant", []string{string(participant)}, req, opts...)
 }
 
-func (c *participantClient[ParticipantTopicType]) MutePublishedTrack(ctx context.Context, participant ParticipantTopicType, req *livekit6.MuteRoomTrackRequest, opts ...psrpc.RequestOption) (*livekit6.MuteRoomTrackResponse, error) {
-	return client.RequestSingle[*livekit6.MuteRoomTrackResponse](ctx, c.client, "MutePublishedTrack", []string{string(participant)}, req, opts...)
+func (c *participantClient[ParticipantTopicType]) MutePublishedTrack(ctx context.Context, participant ParticipantTopicType, req *media_router6.MuteRoomTrackRequest, opts ...psrpc.RequestOption) (*media_router6.MuteRoomTrackResponse, error) {
+	return client.RequestSingle[*media_router6.MuteRoomTrackResponse](ctx, c.client, "MutePublishedTrack", []string{string(participant)}, req, opts...)
 }
 
-func (c *participantClient[ParticipantTopicType]) UpdateParticipant(ctx context.Context, participant ParticipantTopicType, req *livekit6.UpdateParticipantRequest, opts ...psrpc.RequestOption) (*livekit1.ParticipantInfo, error) {
-	return client.RequestSingle[*livekit1.ParticipantInfo](ctx, c.client, "UpdateParticipant", []string{string(participant)}, req, opts...)
+func (c *participantClient[ParticipantTopicType]) UpdateParticipant(ctx context.Context, participant ParticipantTopicType, req *media_router6.UpdateParticipantRequest, opts ...psrpc.RequestOption) (*media_router1.ParticipantInfo, error) {
+	return client.RequestSingle[*media_router1.ParticipantInfo](ctx, c.client, "UpdateParticipant", []string{string(participant)}, req, opts...)
 }
 
-func (c *participantClient[ParticipantTopicType]) UpdateSubscriptions(ctx context.Context, participant ParticipantTopicType, req *livekit6.UpdateSubscriptionsRequest, opts ...psrpc.RequestOption) (*livekit6.UpdateSubscriptionsResponse, error) {
-	return client.RequestSingle[*livekit6.UpdateSubscriptionsResponse](ctx, c.client, "UpdateSubscriptions", []string{string(participant)}, req, opts...)
+func (c *participantClient[ParticipantTopicType]) UpdateSubscriptions(ctx context.Context, participant ParticipantTopicType, req *media_router6.UpdateSubscriptionsRequest, opts ...psrpc.RequestOption) (*media_router6.UpdateSubscriptionsResponse, error) {
+	return client.RequestSingle[*media_router6.UpdateSubscriptionsResponse](ctx, c.client, "UpdateSubscriptions", []string{string(participant)}, req, opts...)
 }
 
-func (c *participantClient[ParticipantTopicType]) ForwardParticipant(ctx context.Context, participant ParticipantTopicType, req *livekit6.ForwardParticipantRequest, opts ...psrpc.RequestOption) (*livekit6.ForwardParticipantResponse, error) {
-	return client.RequestSingle[*livekit6.ForwardParticipantResponse](ctx, c.client, "ForwardParticipant", []string{string(participant)}, req, opts...)
+func (c *participantClient[ParticipantTopicType]) ForwardParticipant(ctx context.Context, participant ParticipantTopicType, req *media_router6.ForwardParticipantRequest, opts ...psrpc.RequestOption) (*media_router6.ForwardParticipantResponse, error) {
+	return client.RequestSingle[*media_router6.ForwardParticipantResponse](ctx, c.client, "ForwardParticipant", []string{string(participant)}, req, opts...)
 }
 
-func (c *participantClient[ParticipantTopicType]) MoveParticipant(ctx context.Context, participant ParticipantTopicType, req *livekit6.MoveParticipantRequest, opts ...psrpc.RequestOption) (*livekit6.MoveParticipantResponse, error) {
-	return client.RequestSingle[*livekit6.MoveParticipantResponse](ctx, c.client, "MoveParticipant", []string{string(participant)}, req, opts...)
+func (c *participantClient[ParticipantTopicType]) MoveParticipant(ctx context.Context, participant ParticipantTopicType, req *media_router6.MoveParticipantRequest, opts ...psrpc.RequestOption) (*media_router6.MoveParticipantResponse, error) {
+	return client.RequestSingle[*media_router6.MoveParticipantResponse](ctx, c.client, "MoveParticipant", []string{string(participant)}, req, opts...)
 }
 
 func (s *participantClient[ParticipantTopicType]) Close() {
@@ -251,27 +251,28 @@ func (s *participantServer[ParticipantTopicType]) Kill() {
 }
 
 var psrpcFileDescriptor6 = []byte{
-	// 337 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x53, 0x4f, 0x4b, 0xfb, 0x40,
-	0x10, 0x25, 0xfc, 0xa0, 0x87, 0x2d, 0x3f, 0xb4, 0xab, 0x42, 0x09, 0x6a, 0xff, 0x9e, 0x13, 0xd0,
-	0x6f, 0xe0, 0x41, 0xf0, 0x50, 0x28, 0x51, 0x2f, 0x5e, 0x24, 0xd9, 0xac, 0x76, 0x69, 0x92, 0x59,
-	0x77, 0x27, 0x95, 0x7a, 0xf1, 0x20, 0x08, 0x82, 0x9f, 0xc6, 0x4f, 0x28, 0x4d, 0x9a, 0x64, 0x9b,
-	0xd2, 0x62, 0x8e, 0xfb, 0xde, 0xdb, 0xf7, 0x66, 0x67, 0x66, 0xc9, 0x89, 0x92, 0xcc, 0x95, 0xbe,
-	0x42, 0xc1, 0x84, 0xf4, 0x13, 0x74, 0xa4, 0x02, 0x04, 0xfa, 0x4f, 0x49, 0x66, 0xff, 0x07, 0x89,
-	0x02, 0x12, 0x9d, 0x63, 0xf6, 0x71, 0x24, 0x16, 0x7c, 0x2e, 0xf0, 0x31, 0x86, 0x90, 0x47, 0x05,
-	0x4a, 0x0b, 0x54, 0x01, 0xc4, 0x39, 0x76, 0xf1, 0xdd, 0x22, 0xed, 0x69, 0xe5, 0x49, 0xdf, 0x49,
-	0xc7, 0xe3, 0x31, 0x2c, 0xb8, 0x09, 0xf6, 0x9d, 0xf5, 0x4d, 0xc7, 0x03, 0x88, 0x0d, 0xe6, 0x26,
-	0xe4, 0x09, 0x0a, 0x5c, 0xda, 0xc3, 0x4a, 0x51, 0xbf, 0xed, 0x71, 0x2d, 0x21, 0xd1, 0x7c, 0x38,
-	0xfe, 0xf9, 0xb2, 0xfa, 0x87, 0x96, 0x7d, 0x4a, 0xda, 0xc6, 0x2b, 0xa8, 0x79, 0xe8, 0x5a, 0x74,
-	0x49, 0xe8, 0x24, 0x45, 0x3e, 0x4d, 0x83, 0x48, 0xe8, 0x19, 0x0f, 0xef, 0x94, 0xcf, 0xe6, 0xf4,
-	0xac, 0xf4, 0x5f, 0x91, 0xab, 0x2a, 0x32, 0xdc, 0xe3, 0x2f, 0x29, 0xd7, 0x68, 0x9f, 0xef, 0xa2,
-	0x1b, 0x45, 0x2f, 0x48, 0xe7, 0x5e, 0x86, 0x3e, 0x6e, 0xbc, 0x7d, 0x50, 0x5a, 0x6f, 0x71, 0x45,
-	0x7a, 0xb7, 0x94, 0x98, 0xad, 0x49, 0x9e, 0xe0, 0x8f, 0xb9, 0x9f, 0x16, 0x39, 0xca, 0xcd, 0x6f,
-	0xd3, 0x40, 0x33, 0x25, 0xf2, 0x59, 0xd2, 0x51, 0x2d, 0x7a, 0x83, 0x2d, 0xc2, 0xc7, 0xfb, 0x45,
-	0x8d, 0x1a, 0xf0, 0x61, 0x11, 0x7a, 0x0d, 0xea, 0xd5, 0x57, 0xa1, 0xd9, 0x82, 0x6a, 0xb8, 0xdb,
-	0x64, 0x51, 0xc6, 0x68, 0xaf, 0xa6, 0x51, 0x15, 0x6f, 0xe4, 0x60, 0x52, 0x5b, 0xc0, 0x5e, 0x35,
-	0xdf, 0xfa, 0x72, 0xe5, 0xf1, 0xfd, 0xdd, 0x82, 0x26, 0xd9, 0x57, 0x83, 0x87, 0xde, 0xb3, 0xc0,
-	0x59, 0x1a, 0x38, 0x0c, 0x62, 0x77, 0xed, 0xe9, 0x66, 0x5f, 0x85, 0x41, 0xe4, 0x2a, 0xc9, 0x82,
-	0x56, 0x76, 0xba, 0xfc, 0x0d, 0x00, 0x00, 0xff, 0xff, 0x30, 0x94, 0x6b, 0x3a, 0x8f, 0x03, 0x00,
-	0x00,
+	// 357 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x93, 0xc1, 0x4a, 0xf3, 0x40,
+	0x10, 0xc7, 0x59, 0x3e, 0xe8, 0x61, 0xcb, 0x87, 0x76, 0x45, 0xd4, 0xa0, 0x20, 0xb5, 0xb5, 0xed,
+	0x25, 0x01, 0x7d, 0x03, 0x0f, 0x82, 0x87, 0x42, 0x89, 0x7a, 0xf1, 0x52, 0x36, 0x9b, 0xa9, 0x5d,
+	0x4c, 0x32, 0xeb, 0x66, 0x53, 0xf1, 0x26, 0xe8, 0xa5, 0x07, 0xc1, 0x67, 0xf1, 0x39, 0x7c, 0x28,
+	0x69, 0x43, 0x70, 0x93, 0x8a, 0x6d, 0x8e, 0xbb, 0xff, 0x5f, 0x66, 0x7e, 0x99, 0x4c, 0xe8, 0xae,
+	0x56, 0xc2, 0x53, 0x5c, 0x1b, 0x29, 0xa4, 0xe2, 0x89, 0x71, 0x95, 0x46, 0x83, 0xec, 0x9f, 0x56,
+	0xc2, 0xf9, 0x8f, 0xca, 0x48, 0x4c, 0xd2, 0xfc, 0xce, 0x39, 0x88, 0x21, 0x94, 0x7c, 0xac, 0x31,
+	0x33, 0xa0, 0xc7, 0x31, 0x86, 0x10, 0x15, 0xd1, 0x5e, 0x29, 0xd2, 0x88, 0x71, 0x1e, 0x9c, 0x7d,
+	0x35, 0x68, 0x73, 0xf4, 0x53, 0x9d, 0xcd, 0x09, 0x6d, 0xf9, 0x10, 0xe3, 0x0c, 0xec, 0xdb, 0xae,
+	0x6b, 0x3f, 0xef, 0xfa, 0x88, 0xb1, 0x15, 0x5f, 0x85, 0x90, 0x18, 0x69, 0x9e, 0x9d, 0x5e, 0x05,
+	0xab, 0xd6, 0xf1, 0x21, 0x55, 0x98, 0xa4, 0xd0, 0xee, 0x7c, 0xce, 0xc9, 0xf1, 0x36, 0x71, 0x0e,
+	0x69, 0xd3, 0x7a, 0x35, 0x66, 0x1f, 0xf6, 0x09, 0x7b, 0x25, 0x94, 0x0d, 0x33, 0x03, 0xa3, 0x2c,
+	0x88, 0x64, 0x3a, 0x85, 0xf0, 0x46, 0x73, 0xf1, 0xc0, 0xda, 0xe5, 0x2e, 0x0b, 0x62, 0x21, 0xb4,
+	0x0c, 0x7d, 0x78, 0xcc, 0x20, 0x35, 0xce, 0xc9, 0x9f, 0x4c, 0x2d, 0x8b, 0x17, 0x42, 0x5b, 0xb7,
+	0x2a, 0xe4, 0xa6, 0x34, 0x91, 0xd3, 0x72, 0x83, 0x15, 0xa0, 0x10, 0x39, 0x2a, 0x73, 0xf6, 0xd4,
+	0x92, 0x09, 0x6e, 0xa8, 0xf0, 0x41, 0xe8, 0x4e, 0xde, 0xe1, 0x3a, 0x0b, 0x52, 0xa1, 0x65, 0xfe,
+	0xd9, 0x59, 0xff, 0x37, 0x89, 0x12, 0x52, 0x68, 0x0c, 0x36, 0x20, 0x6b, 0x4d, 0xe5, 0x9d, 0x50,
+	0x76, 0x89, 0xfa, 0x89, 0xeb, 0xd0, 0x1e, 0x4b, 0x65, 0x03, 0x56, 0x89, 0x42, 0xa8, 0xbf, 0x1e,
+	0xac, 0xe5, 0xf3, 0x46, 0xe8, 0xd6, 0xb0, 0xb2, 0xb5, 0x9d, 0xca, 0x12, 0x54, 0x97, 0x31, 0x37,
+	0xe9, 0xae, 0xa1, 0xea, 0x68, 0x5c, 0x0c, 0xee, 0x7a, 0xf7, 0xd2, 0x4c, 0xb3, 0xc0, 0x15, 0x18,
+	0x7b, 0x33, 0x19, 0x18, 0x0d, 0x80, 0x93, 0x89, 0x14, 0x92, 0x47, 0xde, 0xf2, 0x97, 0x13, 0x18,
+	0x79, 0x5a, 0x89, 0xa0, 0xb1, 0x3c, 0x9d, 0x7f, 0x07, 0x00, 0x00, 0xff, 0xff, 0xd1, 0x51, 0x2c,
+	0x03, 0xe1, 0x03, 0x00, 0x00,
 }

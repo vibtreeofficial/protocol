@@ -21,7 +21,7 @@ option go_package = "github.com/vibtreeofficial/protocol/rpc";
 import "google/protobuf/empty.proto";
 import "google/protobuf/duration.proto";
 import "options.proto";
-import "vibtree_sip.proto";
+import "media_router_sip.proto";
 
 service SIPInternal {
   rpc CreateSIPParticipant(InternalCreateSIPParticipantRequest) returns (InternalCreateSIPParticipantResponse) {
@@ -50,7 +50,7 @@ message InternalCreateSIPParticipantRequest {
   // Hostname for the 'From' SIP address in INVITE
   string hostname = 20;
   string destination_country = 30;
-  vibtree.SIPTransport transport = 16;
+  media_router.SIPTransport transport = 16;
 
   // Number used to make the call
   string number = 3;
@@ -67,10 +67,10 @@ message InternalCreateSIPParticipantRequest {
   string participant_metadata = 15;
   map<string, string> participant_attributes = 17;
 
-  // optional token that should be used when creating LiveKit participant
+  // optional token that should be used when creating Media Router participant
   string token = 9;
 
-  // optional websocket url that should be used when creating LiveKit participant
+  // optional websocket url that should be used when creating Media Router participant
   string ws_url = 10;
 
   // Optionally send following DTMF digits (extension codes) when making a call.
@@ -82,7 +82,7 @@ message InternalCreateSIPParticipantRequest {
 
   map<string, string> headers = 21;
   map<string, string> headers_to_attributes = 22;
-  // Map LiveKit attributes to SIP X-* headers when sending BYE or REFER requests.
+  // Map Media Router attributes to SIP X-* headers when sending BYE or REFER requests.
   // Keys are the names of attributes and values are the names of X-* headers they will be mapped to.
   map<string, string> attributes_to_headers = 26;
   // Map SIP headers from 200 OK to sip.h.* participant attributes automatically.
@@ -91,16 +91,16 @@ message InternalCreateSIPParticipantRequest {
   //
   // When mapping 200 OK headers to follow-up request headers with attributes_to_headers map,
   // lowercase header names should be used, for example: sip.h.x-custom-header.
-  vibtree.SIPHeaderOptions include_headers = 27;
+  media_router.SIPHeaderOptions include_headers = 27;
 
-  repeated vibtree.SIPFeature enabled_features = 25;
+  repeated media_router.SIPFeature enabled_features = 25;
 
   // Max time for the callee to answer the call.
   google.protobuf.Duration ringing_timeout = 23;
   // Max call duration.
   google.protobuf.Duration max_call_duration = 24;
 
-  vibtree.SIPMediaEncryption media_encryption = 28;
+  media_router.SIPMediaEncryption media_encryption = 28;
 
   // Wait for the answer for the call before returning.
   bool wait_until_answered = 29;

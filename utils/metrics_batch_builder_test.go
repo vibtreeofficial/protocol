@@ -1,4 +1,4 @@
-// Copyright 2023 LiveKit, Inc.
+// Copyright 2023 Vibtree, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/vibtreeofficial/protocol/media-router"
+	media_router "github.com/vibtreeofficial/protocol/media-router"
 	"github.com/vibtreeofficial/protocol/utils/mono"
 )
 
@@ -30,7 +30,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 	t.Run("basic", func(t *testing.T) {
 		at := mono.Now()
 		normalizedAt := mono.Now().Add(10 * time.Millisecond)
-		expected := &livekit.MetricsBatch{
+		expected := &media_router.MetricsBatch{
 			TimestampMs:         at.UnixMilli(),
 			NormalizedTimestamp: timestamppb.New(normalizedAt),
 		}
@@ -49,7 +49,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 		at := mono.Now()
 		normalizedAt := mono.Now().Add(10 * time.Millisecond)
 
-		expected := &livekit.MetricsBatch{
+		expected := &media_router.MetricsBatch{
 			TimestampMs:         at.UnixMilli(),
 			NormalizedTimestamp: timestamppb.New(normalizedAt),
 			StrData: []string{
@@ -61,12 +61,12 @@ func TestMetricsBatchBuilder(t *testing.T) {
 				"q",
 				"PA_2",
 			},
-			TimeSeries: []*livekit.TimeSeriesMetric{
+			TimeSeries: []*media_router.TimeSeriesMetric{
 				{
-					Label:               uint32(livekit.MetricLabel_PUBLISHER_RTT),
-					ParticipantIdentity: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					TrackSid:            uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
-					Samples: []*livekit.MetricSample{
+					Label:               uint32(media_router.MetricLabel_PUBLISHER_RTT),
+					ParticipantIdentity: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					TrackSid:            uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
+					Samples: []*media_router.MetricSample{
 						{
 							TimestampMs:         at.UnixMilli(),
 							NormalizedTimestamp: timestamppb.New(normalizedAt),
@@ -83,13 +83,13 @@ func TestMetricsBatchBuilder(t *testing.T) {
 							Value:               62.4,
 						},
 					},
-					Rid: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
+					Rid: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
 				},
 				{
-					Label:               uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
-					ParticipantIdentity: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					TrackSid:            uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
-					Samples: []*livekit.MetricSample{
+					Label:               uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
+					ParticipantIdentity: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					TrackSid:            uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
+					Samples: []*media_router.MetricSample{
 						{
 							TimestampMs:         at.UnixMilli(),
 							NormalizedTimestamp: timestamppb.New(normalizedAt),
@@ -106,12 +106,12 @@ func TestMetricsBatchBuilder(t *testing.T) {
 							Value:               92.4,
 						},
 					},
-					Rid: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
+					Rid: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
 				},
 				{
-					Label:               uint32(livekit.MetricLabel_SUBSCRIBER_RTT),
-					ParticipantIdentity: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 6,
-					Samples: []*livekit.MetricSample{
+					Label:               uint32(media_router.MetricLabel_SUBSCRIBER_RTT),
+					ParticipantIdentity: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 6,
+					Samples: []*media_router.MetricSample{
 						{
 							TimestampMs:         at.UnixMilli(),
 							NormalizedTimestamp: timestamppb.New(normalizedAt),
@@ -120,9 +120,9 @@ func TestMetricsBatchBuilder(t *testing.T) {
 					},
 				},
 				{
-					Label:               uint32(livekit.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT),
-					ParticipantIdentity: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					Samples: []*livekit.MetricSample{
+					Label:               uint32(media_router.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT),
+					ParticipantIdentity: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					Samples: []*media_router.MetricSample{
 						{
 							TimestampMs:         at.UnixMilli(),
 							NormalizedTimestamp: timestamppb.New(normalizedAt),
@@ -138,8 +138,8 @@ func TestMetricsBatchBuilder(t *testing.T) {
 		mbb.SetRestrictedLabels(MetricRestrictedLabels{
 			LabelRanges: []MetricLabelRange{
 				{
-					StartInclusive: livekit.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT,
-					EndInclusive:   livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
+					StartInclusive: media_router.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT,
+					EndInclusive:   media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
 				},
 			},
 			ParticipantIdentity: "PA_1",
@@ -147,13 +147,13 @@ func TestMetricsBatchBuilder(t *testing.T) {
 
 		// should not be able to add invalid metric label index
 		_, err := mbb.AddTimeSeriesMetric(TimeSeriesMetric{
-			MetricLabel: livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE,
+			MetricLabel: media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE,
 		})
 		require.ErrorIs(t, err, ErrInvalidMetricLabel)
 
 		// add a time series metric
 		ts1Idx, err := mbb.AddTimeSeriesMetric(TimeSeriesMetric{
-			MetricLabel:         livekit.MetricLabel_PUBLISHER_RTT,
+			MetricLabel:         media_router.MetricLabel_PUBLISHER_RTT,
 			ParticipantIdentity: "PA_1",
 			TrackID:             "TR_VC1",
 			Samples: []MetricSample{
@@ -222,7 +222,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 
 		// add a third metric with some fields not populated to ensure that those indices default to 0
 		_, err = mbb.AddTimeSeriesMetric(TimeSeriesMetric{
-			MetricLabel:         livekit.MetricLabel_SUBSCRIBER_RTT,
+			MetricLabel:         media_router.MetricLabel_SUBSCRIBER_RTT,
 			ParticipantIdentity: "PA_2",
 			Samples: []MetricSample{
 				{
@@ -236,7 +236,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 
 		// should accept restricted labels from that participant
 		_, err = mbb.AddTimeSeriesMetric(TimeSeriesMetric{
-			MetricLabel:         livekit.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT,
+			MetricLabel:         media_router.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT,
 			ParticipantIdentity: "PA_1",
 			Samples: []MetricSample{
 				{
@@ -250,7 +250,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 
 		// should not accept restricted labels from any other participant
 		_, err = mbb.AddTimeSeriesMetric(TimeSeriesMetric{
-			MetricLabel:         livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
+			MetricLabel:         media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
 			ParticipantIdentity: "PA_2",
 			Samples: []MetricSample{
 				{
@@ -271,7 +271,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 		atMilli := at.UnixMilli()
 		normalizedAt := mono.Now().Add(10 * time.Millisecond)
 
-		expected := &livekit.MetricsBatch{
+		expected := &media_router.MetricsBatch{
 			TimestampMs:         at.UnixMilli(),
 			NormalizedTimestamp: timestamppb.New(normalizedAt),
 			StrData: []string{
@@ -282,43 +282,43 @@ func TestMetricsBatchBuilder(t *testing.T) {
 				"TR_VC2",
 				"PA_2",
 			},
-			Events: []*livekit.EventMetric{
+			Events: []*media_router.EventMetric{
 				{
-					Label:                    uint32(livekit.MetricLabel_PUBLISHER_RTT),
-					ParticipantIdentity:      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					TrackSid:                 uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
+					Label:                    uint32(media_router.MetricLabel_PUBLISHER_RTT),
+					ParticipantIdentity:      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					TrackSid:                 uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
 					StartTimestampMs:         at.UnixMilli(),
 					EndTimestampMs:           &atMilli,
 					NormalizedStartTimestamp: timestamppb.New(normalizedAt),
 					NormalizedEndTimestamp:   timestamppb.New(normalizedAt),
 					Metadata:                 "md1",
-					Rid:                      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
+					Rid:                      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
 				},
 				{
-					Label:                    uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
-					ParticipantIdentity:      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					TrackSid:                 uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
+					Label:                    uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
+					ParticipantIdentity:      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					TrackSid:                 uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
 					StartTimestampMs:         at.UnixMilli(),
 					NormalizedStartTimestamp: timestamppb.New(normalizedAt),
 					Metadata:                 "md2",
 				},
 				{
-					Label:                    uint32(livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER),
-					ParticipantIdentity:      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					TrackSid:                 uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
+					Label:                    uint32(media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER),
+					ParticipantIdentity:      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					TrackSid:                 uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
 					StartTimestampMs:         at.UnixMilli(),
 					EndTimestampMs:           &atMilli,
 					NormalizedStartTimestamp: timestamppb.New(normalizedAt),
 					NormalizedEndTimestamp:   timestamppb.New(normalizedAt),
 					Metadata:                 "md1",
-					Rid:                      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
+					Rid:                      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
 				},
 			},
-			TimeSeries: []*livekit.TimeSeriesMetric{
+			TimeSeries: []*media_router.TimeSeriesMetric{
 				{
-					Label:               uint32(livekit.MetricLabel_SUBSCRIBER_RTT),
-					ParticipantIdentity: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
-					Samples: []*livekit.MetricSample{
+					Label:               uint32(media_router.MetricLabel_SUBSCRIBER_RTT),
+					ParticipantIdentity: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
+					Samples: []*media_router.MetricSample{
 						{
 							TimestampMs:         at.UnixMilli(),
 							NormalizedTimestamp: timestamppb.New(normalizedAt),
@@ -334,8 +334,8 @@ func TestMetricsBatchBuilder(t *testing.T) {
 		mbb.SetRestrictedLabels(MetricRestrictedLabels{
 			LabelRanges: []MetricLabelRange{
 				{
-					StartInclusive: livekit.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT,
-					EndInclusive:   livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
+					StartInclusive: media_router.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT,
+					EndInclusive:   media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
 				},
 			},
 			ParticipantIdentity: "PA_1",
@@ -343,13 +343,13 @@ func TestMetricsBatchBuilder(t *testing.T) {
 
 		// should not be able to add invalid metric label index
 		err := mbb.AddEventMetric(EventMetric{
-			MetricLabel: livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE,
+			MetricLabel: media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE,
 		})
 		require.ErrorIs(t, err, ErrInvalidMetricLabel)
 
 		// add an event metric
 		err = mbb.AddEventMetric(EventMetric{
-			MetricLabel:         livekit.MetricLabel_PUBLISHER_RTT,
+			MetricLabel:         media_router.MetricLabel_PUBLISHER_RTT,
 			ParticipantIdentity: "PA_1",
 			TrackID:             "TR_VC1",
 			StartedAt:           at,
@@ -373,7 +373,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 
 		// should accept restricted label from PA_1
 		err = mbb.AddEventMetric(EventMetric{
-			MetricLabel:         livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
+			MetricLabel:         media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
 			ParticipantIdentity: "PA_1",
 			TrackID:             "TR_VC1",
 			StartedAt:           at,
@@ -387,7 +387,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 
 		// should not accept restricted label from !PA_1
 		err = mbb.AddEventMetric(EventMetric{
-			MetricLabel:         livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
+			MetricLabel:         media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
 			ParticipantIdentity: "PA_2",
 			TrackID:             "TR_VC1",
 			StartedAt:           at,
@@ -401,7 +401,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 
 		// add a time series metric to ensure both time series metric and event metric can be in same batch
 		_, err = mbb.AddTimeSeriesMetric(TimeSeriesMetric{
-			MetricLabel:         livekit.MetricLabel_SUBSCRIBER_RTT,
+			MetricLabel:         media_router.MetricLabel_SUBSCRIBER_RTT,
 			ParticipantIdentity: "PA_2",
 			Samples: []MetricSample{
 				{
@@ -422,7 +422,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 		atMilli := at.UnixMilli()
 		normalizedAt := mono.Now().Add(10 * time.Millisecond)
 
-		expected := &livekit.MetricsBatch{
+		expected := &media_router.MetricsBatch{
 			TimestampMs:         at.UnixMilli(),
 			NormalizedTimestamp: timestamppb.New(normalizedAt),
 			StrData: []string{
@@ -434,51 +434,51 @@ func TestMetricsBatchBuilder(t *testing.T) {
 				"q",
 				"PA_2",
 			},
-			Events: []*livekit.EventMetric{
+			Events: []*media_router.EventMetric{
 				{
-					Label:                    uint32(livekit.MetricLabel_PUBLISHER_RTT),
-					ParticipantIdentity:      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					TrackSid:                 uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
+					Label:                    uint32(media_router.MetricLabel_PUBLISHER_RTT),
+					ParticipantIdentity:      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					TrackSid:                 uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
 					StartTimestampMs:         at.UnixMilli(),
 					EndTimestampMs:           &atMilli,
 					NormalizedStartTimestamp: timestamppb.New(normalizedAt),
 					NormalizedEndTimestamp:   timestamppb.New(normalizedAt),
 					Metadata:                 "md1",
-					Rid:                      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
+					Rid:                      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
 				},
 				{
-					Label:                    uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
-					ParticipantIdentity:      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					TrackSid:                 uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
+					Label:                    uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
+					ParticipantIdentity:      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					TrackSid:                 uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
 					StartTimestampMs:         at.UnixMilli(),
 					NormalizedStartTimestamp: timestamppb.New(normalizedAt),
 					Metadata:                 "md2",
-					Rid:                      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
+					Rid:                      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
 				},
 				{
-					Label:                    uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
-					ParticipantIdentity:      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					TrackSid:                 uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
+					Label:                    uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
+					ParticipantIdentity:      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					TrackSid:                 uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
 					StartTimestampMs:         at.UnixMilli(),
 					NormalizedStartTimestamp: timestamppb.New(normalizedAt),
 					Metadata:                 "md2",
-					Rid:                      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
+					Rid:                      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
 				},
 				{
-					Label:                    uint32(livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_BANDWIDTH),
-					ParticipantIdentity:      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					TrackSid:                 uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
+					Label:                    uint32(media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_BANDWIDTH),
+					ParticipantIdentity:      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					TrackSid:                 uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
 					StartTimestampMs:         at.UnixMilli(),
 					NormalizedStartTimestamp: timestamppb.New(normalizedAt),
 					Metadata:                 "md2",
-					Rid:                      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
+					Rid:                      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 5,
 				},
 			},
-			TimeSeries: []*livekit.TimeSeriesMetric{
+			TimeSeries: []*media_router.TimeSeriesMetric{
 				{
-					Label:               uint32(livekit.MetricLabel_SUBSCRIBER_RTT),
-					ParticipantIdentity: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 6,
-					Samples: []*livekit.MetricSample{
+					Label:               uint32(media_router.MetricLabel_SUBSCRIBER_RTT),
+					ParticipantIdentity: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 6,
+					Samples: []*media_router.MetricSample{
 						{
 							TimestampMs:         at.UnixMilli(),
 							NormalizedTimestamp: timestamppb.New(normalizedAt),
@@ -494,8 +494,8 @@ func TestMetricsBatchBuilder(t *testing.T) {
 		mbb.SetRestrictedLabels(MetricRestrictedLabels{
 			LabelRanges: []MetricLabelRange{
 				{
-					StartInclusive: livekit.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT,
-					EndInclusive:   livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
+					StartInclusive: media_router.MetricLabel_CLIENT_VIDEO_SUBSCRIBER_FREEZE_COUNT,
+					EndInclusive:   media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_OTHER,
 				},
 			},
 			ParticipantIdentity: "PA_1",
@@ -503,13 +503,13 @@ func TestMetricsBatchBuilder(t *testing.T) {
 
 		// should not be able to add invalid metric label index
 		err := mbb.AddEventMetric(EventMetric{
-			MetricLabel: livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE,
+			MetricLabel: media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE,
 		})
 		require.ErrorIs(t, err, ErrInvalidMetricLabel)
 
 		// add an event metric
 		err = mbb.AddEventMetric(EventMetric{
-			MetricLabel:         livekit.MetricLabel_PUBLISHER_RTT,
+			MetricLabel:         media_router.MetricLabel_PUBLISHER_RTT,
 			ParticipantIdentity: "PA_1",
 			TrackID:             "TR_VC1",
 			StartedAt:           at,
@@ -534,7 +534,7 @@ func TestMetricsBatchBuilder(t *testing.T) {
 		})
 		require.NoError(t, err)
 
-		toMerge := &livekit.MetricsBatch{
+		toMerge := &media_router.MetricsBatch{
 			TimestampMs:         at.UnixMilli(),
 			NormalizedTimestamp: timestamppb.New(normalizedAt),
 			StrData: []string{
@@ -544,31 +544,31 @@ func TestMetricsBatchBuilder(t *testing.T) {
 				"q",
 				"PA_2",
 			},
-			Events: []*livekit.EventMetric{
+			Events: []*media_router.EventMetric{
 				{
-					Label:                    uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
-					ParticipantIdentity:      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
-					TrackSid:                 uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
+					Label:                    uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE),
+					ParticipantIdentity:      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
+					TrackSid:                 uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
 					StartTimestampMs:         at.UnixMilli(),
 					NormalizedStartTimestamp: timestamppb.New(normalizedAt),
 					Metadata:                 "md2",
-					Rid:                      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
+					Rid:                      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
 				},
 				{
-					Label:                    uint32(livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_BANDWIDTH),
-					ParticipantIdentity:      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
-					TrackSid:                 uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
+					Label:                    uint32(media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_BANDWIDTH),
+					ParticipantIdentity:      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 1,
+					TrackSid:                 uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 2,
 					StartTimestampMs:         at.UnixMilli(),
 					NormalizedStartTimestamp: timestamppb.New(normalizedAt),
 					Metadata:                 "md2",
-					Rid:                      uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
+					Rid:                      uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 3,
 				},
 			},
-			TimeSeries: []*livekit.TimeSeriesMetric{
+			TimeSeries: []*media_router.TimeSeriesMetric{
 				{
-					Label:               uint32(livekit.MetricLabel_SUBSCRIBER_RTT),
-					ParticipantIdentity: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
-					Samples: []*livekit.MetricSample{
+					Label:               uint32(media_router.MetricLabel_SUBSCRIBER_RTT),
+					ParticipantIdentity: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
+					Samples: []*media_router.MetricSample{
 						{
 							TimestampMs:         at.UnixMilli(),
 							NormalizedTimestamp: timestamppb.New(normalizedAt),
@@ -578,9 +578,9 @@ func TestMetricsBatchBuilder(t *testing.T) {
 				},
 				{
 					// should be filtered
-					Label:               uint32(livekit.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_CPU),
-					ParticipantIdentity: uint32(livekit.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
-					Samples: []*livekit.MetricSample{
+					Label:               uint32(media_router.MetricLabel_CLIENT_VIDEO_PUBLISHER_QUALITY_LIMITATION_DURATION_CPU),
+					ParticipantIdentity: uint32(media_router.MetricLabel_METRIC_LABEL_PREDEFINED_MAX_VALUE) + 4,
+					Samples: []*media_router.MetricSample{
 						{
 							TimestampMs:         at.UnixMilli(),
 							NormalizedTimestamp: timestamppb.New(normalizedAt),

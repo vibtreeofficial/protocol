@@ -19,10 +19,10 @@ package rpc;
 option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "options.proto";
-import "vibtree_agent_dispatch.proto";
+import "media_router_agent_dispatch.proto";
 
 service AgentDispatchInternal {
-  rpc CreateDispatch(vibtree.AgentDispatch) returns (vibtree.AgentDispatch) {
+  rpc CreateDispatch(media_router.AgentDispatch) returns (media_router.AgentDispatch) {
     option (psrpc.options) = {
       topics: true
       topic_params: {
@@ -33,7 +33,7 @@ service AgentDispatchInternal {
     };
   };
 
-  rpc DeleteDispatch(vibtree.DeleteAgentDispatchRequest) returns (vibtree.AgentDispatch) {
+  rpc DeleteDispatch(media_router.DeleteAgentDispatchRequest) returns (media_router.AgentDispatch) {
     option (psrpc.options) = {
       topics: true
       topic_params: {
@@ -44,7 +44,7 @@ service AgentDispatchInternal {
     };
   };
 
-  rpc ListDispatch(vibtree.ListAgentDispatchRequest) returns (vibtree.ListAgentDispatchResponse) {
+  rpc ListDispatch(media_router.ListAgentDispatchRequest) returns (media_router.ListAgentDispatchResponse) {
     option (psrpc.options) = {
       topics: true
       topic_params: {

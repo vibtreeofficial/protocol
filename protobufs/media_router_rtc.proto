@@ -19,7 +19,7 @@ option go_package = "github.com/vibtreeofficial/protocol/media-router";
 option csharp_namespace = "MediaRouter.Proto";
 option ruby_package = "MediaRouter::Proto";
 
-import "vibtree_models.proto";
+import "media_router_models.proto";
 
 message SignalRequest {
   oneof message {

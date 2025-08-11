@@ -20,11 +20,11 @@ option csharp_namespace = "MediaRouter.Proto";
 option ruby_package = "MediaRouter::Proto";
 
 // internal protos, not exposed to clients
-import "vibtree_models.proto";
-import "vibtree_egress.proto";
-import "vibtree_agent_dispatch.proto";
-import "vibtree_room.proto";
-import "vibtree_rtc.proto";
+import "media_router_models.proto";
+import "media_router_egress.proto";
+import "media_router_agent_dispatch.proto";
+import "media_router_room.proto";
+import "media_router_rtc.proto";
 
 enum NodeType {
   SERVER = 0;
@@ -177,9 +177,9 @@ message StartSession {
   ReconnectReason reconnect_reason = 17;
   optional bool subscriber_allow_pause = 18;
   bool disable_ice_lite = 19;
-  vibtree.CreateRoomRequest create_room = 20;
-  repeated vibtree.AddTrackRequest add_track_requests = 21;
-  vibtree.SessionDescription publisher_offer = 22;
+  media_router.CreateRoomRequest create_room = 20;
+  repeated media_router.AddTrackRequest add_track_requests = 21;
+  media_router.SessionDescription publisher_offer = 22;
 }
 
 // room info that should not be returned to clients

@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package replay;
+package media_router;
 
-option go_package = "github.com/livekit/protocol/replay";
-option csharp_namespace = "LiveKit.Proto";
-option ruby_package = "LiveKit::Proto";
+option go_package = "github.com/vibtreeofficial/protocol/media-router";
+option csharp_namespace = "MediaRouter.Proto.Replay";
+option ruby_package = "MediaRouter::Proto::Replay";
 
 import "google/protobuf/empty.proto";
 

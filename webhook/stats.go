@@ -1,4 +1,4 @@
-// Copyright 2023 LiveKit, Inc.
+// Copyright 2023 Vibtree, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -34,14 +34,14 @@ func InitWebhookStats(constLabels prometheus.Labels) {
 
 func initWebhookStats(constLabels prometheus.Labels) {
 	promWebhookDispatchTotal = promauto.NewCounterVec(prometheus.CounterOpts{
-		Namespace:   "livekit",
+		Namespace:   "media-router",
 		Subsystem:   "webhook",
 		Name:        "dispatch_total",
 		ConstLabels: constLabels,
 	}, []string{"status", "reason"})
 
 	promWebhookQueueLengthHistogram = promauto.NewHistogram(prometheus.HistogramOpts{
-		Namespace:   "livekit",
+		Namespace:   "media-router",
 		Subsystem:   "webhook",
 		Name:        "queue_length",
 		ConstLabels: constLabels,

@@ -18,23 +18,23 @@ package rpc;
 
 option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
-import "vibtree_egress.proto";
-import "vibtree_ingress.proto";
-import "vibtree_sip.proto";
-import "vibtree_room.proto";
+import "media_router_egress.proto";
+import "media_router_ingress.proto";
+import "media_router_sip.proto";
+import "media_router_room.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/duration.proto";
 
 service IOInfo {
   // egress
-  rpc CreateEgress(vibtree.EgressInfo) returns (google.protobuf.Empty);
-  rpc UpdateEgress(vibtree.EgressInfo) returns (google.protobuf.Empty);
-  rpc GetEgress(GetEgressRequest) returns (vibtree.EgressInfo);
-  rpc ListEgress(vibtree.ListEgressRequest) returns (vibtree.ListEgressResponse);
+  rpc CreateEgress(media_router.EgressInfo) returns (google.protobuf.Empty);
+  rpc UpdateEgress(media_router.EgressInfo) returns (google.protobuf.Empty);
+  rpc GetEgress(GetEgressRequest) returns (media_router.EgressInfo);
+  rpc ListEgress(media_router.ListEgressRequest) returns (media_router.ListEgressResponse);
   rpc UpdateMetrics(UpdateMetricsRequest) returns (google.protobuf.Empty);
 
   // ingress
-  rpc CreateIngress(vibtree.IngressInfo) returns (google.protobuf.Empty);
+  rpc CreateIngress(media_router.IngressInfo) returns (google.protobuf.Empty);
   rpc GetIngressInfo(GetIngressInfoRequest) returns (GetIngressInfoResponse);
   rpc UpdateIngressState(UpdateIngressStateRequest) returns (google.protobuf.Empty);
 
@@ -49,7 +49,7 @@ message GetEgressRequest {
 }
 
 message UpdateMetricsRequest {
-  vibtree.EgressInfo info = 1;
+  media_router.EgressInfo info = 1;
   float avg_cpu_usage = 3;
   float max_cpu_usage = 4;
 }
@@ -61,7 +61,7 @@ message GetIngressInfoRequest {
 }
 
 message GetIngressInfoResponse {
-  vibtree.IngressInfo info = 1;
+  media_router.IngressInfo info = 1;
   string token = 2;
   string ws_url = 3;
   map<string,string> logging_fields = 4;
@@ -70,7 +70,7 @@ message GetIngressInfoResponse {
 // Request to store an update to the ingress state ingress -> service
 message UpdateIngressStateRequest {
   string ingress_id = 1;
-  vibtree.IngressState state = 2;
+  media_router.IngressState state = 2;
 }
 
 message GetSIPTrunkAuthenticationRequest {
@@ -145,21 +145,21 @@ message EvaluateSIPDispatchRulesResponse {
   // non-empty string if SIPParticipant should be placed a room
   string room_name = 1;
 
-  // What should be used for the LiveKit participant identity
+  // What should be used for the Media Router participant identity
   string participant_identity = 2;
-  // What should be used for the LiveKit participant name
+  // What should be used for the Media Router participant name
   string participant_name = 7;
-  // What should be used for the LiveKit participant metadata
+  // What should be used for the Media Router participant metadata
   string participant_metadata = 8;
-  // What should be used for the LiveKit participant attributes
+  // What should be used for the Media Router participant attributes
   map<string, string> participant_attributes = 11;
 
   bool request_pin = 3 [deprecated=true]; // see result
 
-  // optional token that should be used when creating LiveKit participant
+  // optional token that should be used when creating Media Router participant
   string token = 4;
 
-  // optional websocket url that should be used when creating LiveKit participant
+  // optional websocket url that should be used when creating Media Router participant
   string ws_url = 5;
 
   SIPDispatchResult result = 6;
@@ -173,12 +173,12 @@ message EvaluateSIPDispatchRulesResponse {
   string project_id = 12;
 
   // Include these SIP X-* headers in 200 OK response to INVITE.
-  // These headers are included as-is and may help identify triggered LiveKit Dispatch Rule for the other SIP endpoint.
+  // These headers are included as-is and may help identify triggered Media Router Dispatch Rule for the other SIP endpoint.
   map<string, string> headers = 13;
   // Map SIP X-* headers from INVITE to SIP participant attributes.
   // Keys are the names of X-* headers and values are the names of attributes they will be mapped to.
   map<string, string> headers_to_attributes = 14;
-  // Map LiveKit attributes to SIP X-* headers when sending BYE or REFER requests.
+  // Map Media Router attributes to SIP X-* headers when sending BYE or REFER requests.
   // Keys are the names of attributes and values are the names of X-* headers they will be mapped to.
   map<string, string> attributes_to_headers = 18;
   // Map SIP headers from INVITE to sip.h.* participant attributes automatically.
@@ -187,9 +187,9 @@ message EvaluateSIPDispatchRulesResponse {
   //
   // When mapping INVITE headers to response headers with attributes_to_headers map,
   // lowercase header names should be used, for example: sip.h.x-custom-header.
-  vibtree.SIPHeaderOptions include_headers = 19;
+  media_router.SIPHeaderOptions include_headers = 19;
 
-  repeated vibtree.SIPFeature enabled_features = 15;
+  repeated media_router.SIPFeature enabled_features = 15;
 
   // Max time for the caller to wait for track subscription.
   google.protobuf.Duration ringing_timeout = 16;
@@ -200,16 +200,16 @@ message EvaluateSIPDispatchRulesResponse {
   // once tokens are returned by this response consistently, it will no longer
   // be needed
   string room_preset = 20;
-  vibtree.RoomConfiguration room_config = 21;
+  media_router.RoomConfiguration room_config = 21;
 
-  vibtree.SIPMediaEncryption media_encryption = 22;
+  media_router.SIPMediaEncryption media_encryption = 22;
 
   // NEXT ID: 23
 }
 
 message UpdateSIPCallStateRequest {
-  vibtree.SIPCallInfo call_info = 1;
-  vibtree.SIPTransferInfo transfer_info = 2;
+  media_router.SIPCallInfo call_info = 1;
+  media_router.SIPTransferInfo transfer_info = 2;
 
    // NEXT ID: 3
 }
@@ -225,9 +225,9 @@ enum SIPDispatchResult {
 message SIPCall {
   string lk_call_id = 1;
   string source_ip = 2; // source ip (without port)
-  vibtree.SIPUri address = 3; // address in the request line (INVITE)
-  vibtree.SIPUri from = 4; // From header
-  vibtree.SIPUri to = 5; // To header
-  repeated vibtree.SIPUri via = 6; // Via headers
+  media_router.SIPUri address = 3; // address in the request line (INVITE)
+  media_router.SIPUri from = 4; // From header
+  media_router.SIPUri to = 5; // To header
+  repeated media_router.SIPUri via = 6; // Via headers
   string sip_call_id = 7; // SIP protocol generated call ID
 }

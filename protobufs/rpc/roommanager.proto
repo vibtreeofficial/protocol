@@ -19,11 +19,11 @@ package rpc;
 option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "options.proto";
-import "vibtree_models.proto";
-import "vibtree_room.proto";
+import "media_router_models.proto";
+import "media_router_room.proto";
 
 service RoomManager {
-  rpc CreateRoom(vibtree.CreateRoomRequest) returns (vibtree.Room) {
+  rpc CreateRoom(media_router.CreateRoomRequest) returns (media_router.Room) {
     option (psrpc.options) = {
       topics: true
       topic_params: {

@@ -45,6 +45,11 @@ type ParticipantKey struct {
 type JobID string
 type DispatchID string
 type AgentName string
+type MetricLabel uint32
+
+const (
+	METRIC_LABEL_PREDEFINED_MAX_VALUE MetricLabel = 1000
+)
 
 func (s TrackID) String() string             { return string(s) }
 func (s ParticipantID) String() string       { return string(s) }

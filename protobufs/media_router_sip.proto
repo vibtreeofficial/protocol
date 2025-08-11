@@ -22,11 +22,11 @@ option ruby_package = "MediaRouter::Proto";
 
 import "google/protobuf/duration.proto";
 import "google/protobuf/empty.proto";
-import "vibtree_models.proto";
-import "vibtree_room.proto";
+import "media_router_models.proto";
+import "media_router_room.proto";
 
 /*
-   LiveKit's SIP API is built with 3 high level primitives
+   Media Router's SIP API is built with 3 high level primitives
    - SIP Trunk
    - SIP Dispatch Rule
    - SIP Participant
@@ -39,14 +39,14 @@ import "vibtree_room.proto";
 
 
    The `SIP Dispatch Rule` is a list of rules that dictate how a incoming SIP call should be handled.
-   LiveKit currently supports 2 types, but may support more in the future.
+   Media Router currently supports 2 types, but may support more in the future.
 
    - `Direct Dispatch` puts a caller into a existing room, possibly choosing between multiple rooms with a pin
    - `Individual Dispatch` puts a caller into a new room created for the call
 
 
    The `SIP Participant` represents an active SIP Session. These SIP Sessions are always associated with
-   a Participant on LiveKit side. Inbound calls create Participants directly (with a `SIP` kind), while outbound
+   a Participant on Media Router side. Inbound calls create Participants directly (with a `SIP` kind), while outbound
    calls must be initiated with `CreateSIPParticipant`.
 */
 
@@ -257,7 +257,7 @@ message SIPInboundTrunkInfo {
   // User-defined metadata for the Trunk.
   string metadata = 3;
 
-  // Numbers associated with LiveKit SIP. The Trunk will only accept calls made to these numbers.
+  // Numbers associated with Media Router SIP. The Trunk will only accept calls made to these numbers.
   // Creating multiple Trunks with different phone numbers allows having different rules for a single provider.
   repeated string numbers = 4;
 
@@ -278,7 +278,7 @@ message SIPInboundTrunkInfo {
   map<string, string> headers = 9;
   // Map SIP X-* headers from INVITE to SIP participant attributes.
   map<string, string> headers_to_attributes = 10;
-  // Map LiveKit attributes to SIP X-* headers when sending BYE or REFER requests.
+  // Map Media Router attributes to SIP X-* headers when sending BYE or REFER requests.
   // Keys are the names of attributes and values are the names of X-* headers they will be mapped to.
   map<string, string> attributes_to_headers = 14;
   // Map SIP headers from INVITE to sip.h.* participant attributes automatically.
@@ -335,7 +335,7 @@ message SIPOutboundTrunkInfo {
   // Note that this is not a SIP URI and should not contain the 'sip:' protocol prefix.
   string address = 4;
 
-  // country where the call terminates as ISO 3166-1 alpha-2 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). This will be used by the livekit infrastructure to route calls.
+  // country where the call terminates as ISO 3166-1 alpha-2 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). This will be used by the media router infrastructure to route calls.
   string destination_country = 14;
 
   // SIP Transport used for outbound call.
@@ -350,12 +350,12 @@ message SIPOutboundTrunkInfo {
   string auth_password = 8;
 
   // Include these SIP X-* headers in INVITE request.
-  // These headers are sent as-is and may help identify this call as coming from LiveKit for the other SIP endpoint.
+  // These headers are sent as-is and may help identify this call as coming from Media Router for the other SIP endpoint.
   map<string, string> headers = 9;
   // Map SIP X-* headers from 200 OK to SIP participant attributes.
   // Keys are the names of X-* headers and values are the names of attributes they will be mapped to.
   map<string, string> headers_to_attributes = 10;
-  // Map LiveKit attributes to SIP X-* headers when sending BYE or REFER requests.
+  // Map Media Router attributes to SIP X-* headers when sending BYE or REFER requests.
   // Keys are the names of attributes and values are the names of X-* headers they will be mapped to.
   map<string, string> attributes_to_headers = 11;
   // Map SIP headers from 200 OK to sip.h.* participant attributes automatically.
@@ -586,7 +586,7 @@ message SIPOutboundConfig {
   // SIP server address
   string hostname = 1;
 
-  // country where the call terminates as ISO 3166-1 alpha-2 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). This will be used by the livekit infrastructure to route calls.
+  // country where the call terminates as ISO 3166-1 alpha-2 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). This will be used by the media router infrastructure to route calls.
   string destination_country = 7;
 
   // SIP Transport used for outbound call.
@@ -600,14 +600,14 @@ message SIPOutboundConfig {
   // Map SIP X-* headers from 200 OK to SIP participant attributes.
   // Keys are the names of X-* headers and values are the names of attributes they will be mapped to.
   map<string, string> headers_to_attributes = 5;
-  // Map LiveKit attributes to SIP X-* headers when sending BYE or REFER requests.
+  // Map Media Router attributes to SIP X-* headers when sending BYE or REFER requests.
   // Keys are the names of attributes and values are the names of X-* headers they will be mapped to.
   map<string, string> attributes_to_headers = 6;
 
   // NEXT ID: 7
 }
 
-// A SIP Participant is a singular SIP session connected to a LiveKit room via
+// A SIP Participant is a singular SIP session connected to a Media Router room via
 // a SIP Trunk into a SIP DispatchRule
 message CreateSIPParticipantRequest {
   // What SIP Trunk should be used to dial the user
@@ -620,13 +620,13 @@ message CreateSIPParticipantRequest {
   // Optional SIP From number to use. If empty, trunk number is used.
   string sip_number = 15;
 
-  // What LiveKit room should this participant be connected too
+  // What Media Router room should this participant be connected too
   string room_name = 3;
 
-  // Optional identity of the participant in LiveKit room
+  // Optional identity of the participant in Media Router room
   string participant_identity = 4;
 
-  // Optional name of the participant in LiveKit room
+  // Optional name of the participant in Media Router room
   string participant_name = 7;
 
   // Optional user-defined metadata. Will be attached to a created Participant in the room.
@@ -646,7 +646,7 @@ message CreateSIPParticipantRequest {
   // If true, a random value for identity will be used and numbers will be omitted from attributes.
   bool hide_phone_number = 10;
 
-  // These headers are sent as-is and may help identify this call as coming from LiveKit for the other SIP endpoint.
+  // These headers are sent as-is and may help identify this call as coming from Media Router for the other SIP endpoint.
   map<string, string> headers = 16;
   // Map SIP headers from 200 OK to sip.h.* participant attributes automatically.
   //
@@ -744,9 +744,9 @@ message SIPUri {
 }
 
 enum SIPCallStatus {
-  SCS_CALL_INCOMING = 0; // Incoming call is being handled by the SIP service. The SIP participant hasn't joined a LiveKit room yet
+  SCS_CALL_INCOMING = 0; // Incoming call is being handled by the SIP service. The SIP participant hasn't joined a Media Router room yet
   SCS_PARTICIPANT_JOINED = 1; // SIP participant for outgoing call has been created. The SIP outgoing call is being established
-  SCS_ACTIVE = 2; // Call is ongoing. SIP participant is active in the LiveKit room
+  SCS_ACTIVE = 2; // Call is ongoing. SIP participant is active in the Media Router room
   SCS_DISCONNECTED = 3; // Call has ended
   SCS_ERROR = 4; // Call has ended or never succeeded because of an error
 }

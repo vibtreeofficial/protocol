@@ -5,7 +5,7 @@ import (
 	"github.com/vibtreeofficial/protocol/observability/roomobs"
 )
 
-const Project = "livekit"
+const Project = "media-router"
 
 type Reporter interface {
 	Room() roomobs.Reporter

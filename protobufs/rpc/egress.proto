@@ -19,10 +19,10 @@ package rpc;
 option go_package = "github.com/vibtreeofficial/protocol/rpc";
 
 import "options.proto";
-import "vibtree_egress.proto";
+import "media_router_egress.proto";
 
 service EgressInternal {
-  rpc StartEgress(StartEgressRequest) returns (vibtree.EgressInfo) {
+  rpc StartEgress(StartEgressRequest) returns (media_router.EgressInfo) {
     option (psrpc.options).affinity_func = true;
     option (psrpc.options).topics = true;
   };
@@ -33,10 +33,10 @@ service EgressInternal {
 }
 
 service EgressHandler {
-  rpc UpdateStream(vibtree.UpdateStreamRequest) returns (vibtree.EgressInfo) {
+  rpc UpdateStream(media_router.UpdateStreamRequest) returns (media_router.EgressInfo) {
     option (psrpc.options).topics = true;
   }
-  rpc StopEgress(vibtree.StopEgressRequest) returns (vibtree.EgressInfo) {
+  rpc StopEgress(media_router.StopEgressRequest) returns (media_router.EgressInfo) {
     option (psrpc.options).topics = true;
   }
 }
@@ -47,11 +47,11 @@ message StartEgressRequest {
 
   // request
   oneof request {
-    vibtree.RoomCompositeEgressRequest room_composite = 5;
-    vibtree.WebEgressRequest web = 11;
-    vibtree.ParticipantEgressRequest participant = 13;
-    vibtree.TrackCompositeEgressRequest track_composite = 6;
-    vibtree.TrackEgressRequest track = 7;
+    media_router.RoomCompositeEgressRequest room_composite = 5;
+    media_router.WebEgressRequest web = 11;
+    media_router.ParticipantEgressRequest participant = 13;
+    media_router.TrackCompositeEgressRequest track_composite = 6;
+    media_router.TrackEgressRequest track = 7;
   }
 
   // connection info

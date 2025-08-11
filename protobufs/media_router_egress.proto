@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package media_router;
 
-import "vibtree_models.proto";
+import "media_router_models.proto";
 
 option go_package = "github.com/vibtreeofficial/protocol/media-router";
 option csharp_namespace = "MediaRouter.Proto";
@@ -50,7 +50,7 @@ message RoomCompositeEgressRequest {
   bool audio_only = 3;           // (default false)
   AudioMixing audio_mixing = 15; // only applies to audio_only egress (default DEFAULT_MIXING)
   bool video_only = 4;           // (default false)
-  string custom_base_url = 5;    // template base url (default https://recorder.livekit.io)
+  string custom_base_url = 5;    // template base url (default https://recorder.media-router.io)
   oneof output {                 // deprecated (use _output fields)
     EncodedFileOutput file = 6 [deprecated = true];
     StreamOutput stream = 7 [deprecated = true];
@@ -235,7 +235,7 @@ message S3Upload {
   string access_key = 1;
   string secret = 2;
   string session_token = 11;
-  string assume_role_arn = 12;         // ARN of the role to assume for file upload. Egress will make an AssumeRole API call using the provided access_key and secret to assume that role. On LiveKit cloud, this is only available on accounts that have the feature enabled
+  string assume_role_arn = 12;         // ARN of the role to assume for file upload. Egress will make an AssumeRole API call using the provided access_key and secret to assume that role. On Media Router cloud, this is only available on accounts that have the feature enabled
   string assume_role_external_id = 13; // ExternalID to use when assuming role for upload
   string region = 3;
   string endpoint = 4;
